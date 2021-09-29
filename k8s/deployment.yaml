@@ -39,6 +39,7 @@ spec:
     - port: 27017
   type: ClusterIP
 ---
+# Deploy App
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -69,7 +70,7 @@ spec:
             - name: MONGODB_PASSWORD
               value: "mongopwd"
 ---
-# Webapp service deploy
+# App service
 apiVersion: v1
 kind: Service
 metadata:
