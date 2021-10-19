@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  web:
+    image: seltonlucas/rotten-potatoes:v1
+    ports:
+      - 5000:5000
+    networks:
+      - mongo_net
+    depends_on:
+      - mongodb
+    environment:
+      MONGODB_DB: ${MONGODB_DB}
+      MONGODB_HOST: ${MONGODB_HOST}
+      MONGODB_PORT: ${MONGODB_PORT}
+      MONGODB_USERNAME: ${MONGODB_USERNAME}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+
+  mongodb:
+    image: mongo:4.4.3
+    ports:
+      - 27017:27017
+    networks:
+      - mongo_net
+    volumes:
+      - mongo_vol:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGODB_DB}
+
+volumes:
+  mongo_vol:
+
+networks:
+  mongo_net:
+    driver: bridge
